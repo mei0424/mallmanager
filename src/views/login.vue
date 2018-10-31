@@ -8,11 +8,11 @@
       <el-form-item label="密码">
         <el-input v-model="formdata.password"></el-input>
       </el-form-item>
-      <el-button class="login-button" type="primary">登录</el-button>
+      <el-button class="login-button" type="primary"
+      @click.prevent="handelloginin()">登录</el-button>
     </el-form>
   </div>
 </template>
-
 <script>
 export default {
   data () {
@@ -21,6 +21,16 @@ export default {
         username: '',
         password: ''
       }
+    }
+  },
+  methods: {
+    async handelloginin () {
+      // 在该函数中
+      // 1 获取到表单数据
+      const formdata = this.formdata
+      // 发送post请求
+      const res = await this.$http.post('login', formdata)
+      console.log(res)
     }
   }
 }

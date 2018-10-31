@@ -3,11 +3,15 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+// 1 导入httpTool
+import httpTool from '@/pulign/http.js'
 import App from './App'
 import router from './router'
 import '@/assets/css/index.css'
 
 Vue.use(ElementUI)
+// 2 使用httpTool
+Vue.use(httpTool)
 
 Vue.config.productionTip = false
 
