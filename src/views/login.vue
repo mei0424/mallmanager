@@ -31,6 +31,20 @@ export default {
       // 发送post请求
       const res = await this.$http.post('login', formdata)
       console.log(res)
+      const {meta} = res.data
+      if (meta.status === 200) {
+        // 如果成功
+        // 弹出登录成功提示框
+        this.$message.success(meta.msg)
+        // 登录成功后，将获取到的token值存储到sessionStorage中
+        const token = res.data.data.token
+        sessionStorage.setItem('token', token)
+        // 改变路径标识为'/'
+        this.$router.push('/')
+      } else {
+        // 失败
+        this.$message.error(meta.msg)
+      }
     }
   }
 }
