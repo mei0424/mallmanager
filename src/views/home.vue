@@ -82,7 +82,6 @@
 
     </el-menu>
     </el-aside>
-    
     <el-main class="main">
       <router-view></router-view>
     </el-main>
