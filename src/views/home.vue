@@ -16,12 +16,7 @@
 <el-container>
   <el-aside class="aside" width="200px">
     <!-- router="true"开启路由模式 -->
-    <el-menu
-      default-active="1"
-      class="menu"
-      :router="true"
-      :unique-opened="true">
-
+    <el-menu default-active="1" class="menu" :router="true" :unique-opened="true">
       <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-location"></i>
