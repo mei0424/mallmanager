@@ -9,12 +9,13 @@
         <h2>电商后台管理系统</h2>
       </el-col>
       <el-col :span="1">
-        <a href="#" class="loginout">退出</a>
+        <a href="#" class="loginout" @click.prevent="loginout()">退出</a>
       </el-col>
     </el-row>
   </el-header>
 <el-container>
   <el-aside class="aside" width="200px">
+    <!-- router="true"开启路由模式 -->
     <el-menu
       default-active="1"
       class="menu"
@@ -26,7 +27,7 @@
           <i class="el-icon-location"></i>
           <span>用户管理</span>
         </template>
-          <el-menu-item index="1-1">
+          <el-menu-item index="/users">
             <i class="el-icon-menu"></i>
             用户列表</el-menu-item>
       </el-submenu>
@@ -36,10 +37,10 @@
           <i class="el-icon-location"></i>
           <span>权限管理</span>
         </template>
-          <el-menu-item index="2-1">
+          <el-menu-item index="/role">
             <i class="el-icon-menu"></i>
             角色列表</el-menu-item>
-          <el-menu-item index="2-2">
+          <el-menu-item index="/right">
             <i class="el-icon-menu"></i>
             权限列表</el-menu-item>
       </el-submenu>
@@ -90,7 +91,28 @@
 </template>
 
 <script>
-export default {}
+export default {
+  beforeCreate () {
+    const token = sessionStorage.getItem('token')
+    if (!token) {
+      this.$router.push('/login')
+      this.$message.warning('请先登录')
+    } else {
+      this.$router.push('/')
+    }
+  },
+  methods: {
+    // 退出功能
+    loginout () {
+      // 1 清除session
+      sessionStorage.clear()
+      // 2 跳转到登录页
+      this.$router.push({name: 'login'})
+      // 3 提示用户 退出成功
+      this.$message.success('退出成功')
+    }
+  }
+}
 </script>
 
 <style>
