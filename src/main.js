@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+// 1 引入moment插件
+import moment from 'moment'
 // 1 导入httpTool
 import httpTool from '@/pulign/http.js'
 import App from './App'
@@ -14,6 +16,12 @@ Vue.use(ElementUI)
 Vue.use(httpTool)
 
 Vue.config.productionTip = false
+
+// 自定义全局过滤器
+// 格式化日期
+Vue.filter('fmtDate', (value) => {
+  return moment(value).format('YYYY-MM-DD HH:mm:ss')
+})
 
 /* eslint-disable no-new */
 new Vue({
