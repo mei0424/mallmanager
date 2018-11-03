@@ -212,6 +212,7 @@ export default {
         this.setRoleDialogFormVisible = false
         this.pagenum = 1
         this.loadTableDate()
+        this.currentRoleId = -1
       }
     },
     // 点击显示分配角色对话框

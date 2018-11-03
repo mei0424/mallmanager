@@ -10,6 +10,7 @@ import httpTool from '@/pulign/http.js'
 import App from './App'
 import router from './router'
 import '@/assets/css/index.css'
+import MyBread from '@/components/MyBread'
 
 Vue.use(ElementUI)
 // 2 使用httpTool
@@ -22,6 +23,8 @@ Vue.config.productionTip = false
 Vue.filter('fmtDate', (value) => {
   return moment(value).format('YYYY-MM-DD HH:mm:ss')
 })
+
+Vue.component(MyBread.name, MyBread)
 
 /* eslint-disable no-new */
 new Vue({
