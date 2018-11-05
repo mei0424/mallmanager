@@ -118,15 +118,14 @@ export default {
       // ...操作符，展开数组每个元素
       const arr = [...arr1, ...arr2]
       console.log(arr)
-      const res = await this.$http.post(`roles/${this.roleId}/rights`,{
+      const res = await this.$http.post(`roles/${this.roleId}/rights`, {
         rids: arr.join(',')
       })
-      const {meta, data} = res.data
+      const {meta} = res.data
       if (meta.status === 200) {
         this.$message.success(meta.msg)
         this.loadRoleList()
       }
-
     },
     // 点击显示对话框
     async showDialog (role) {

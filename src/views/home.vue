@@ -17,63 +17,18 @@
   <el-aside class="aside" width="200px">
     <!-- router="true"开启路由模式 -->
     <el-menu default-active="1" class="menu" :router="true" :unique-opened="true">
-      <el-submenu index="1">
+      <el-submenu :index="index + ''"
+      v-for="(item1, index) in menus"
+      :key="index">
         <template slot="title">
           <i class="el-icon-location"></i>
-          <span>用户管理</span>
+          <span>{{item1.authName}}</span>
         </template>
-          <el-menu-item index="/users">
+          <el-menu-item :index="'/' + item2.path"
+          v-for="(item2, index) in item1.children"
+          :key="index">
             <i class="el-icon-menu"></i>
-            用户列表</el-menu-item>
-      </el-submenu>
-
-      <el-submenu index="2">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>权限管理</span>
-        </template>
-          <el-menu-item index="/role">
-            <i class="el-icon-menu"></i>
-            角色列表</el-menu-item>
-          <el-menu-item index="/rights">
-            <i class="el-icon-menu"></i>
-            权限列表</el-menu-item>
-      </el-submenu>
-
-      <el-submenu index="3">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>商品管理</span>
-        </template>
-          <el-menu-item index="3-1">
-            <i class="el-icon-menu"></i>
-            商品列表</el-menu-item>
-          <el-menu-item index="3-2">
-            <i class="el-icon-menu"></i>
-            分类参数</el-menu-item>
-          <el-menu-item index="3-3">
-            <i class="el-icon-menu"></i>
-            商品分类</el-menu-item>
-      </el-submenu>
-
-      <el-submenu index="4">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>订单管理</span>
-        </template>
-          <el-menu-item index="4-1">
-            <i class="el-icon-menu"></i>
-            订单列表</el-menu-item>
-      </el-submenu>
-
-      <el-submenu index="5">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>数据统计</span>
-        </template>
-          <el-menu-item index="5-1">
-            <i class="el-icon-menu"></i>
-            数据报表</el-menu-item>
+            {{item2.authName}}</el-menu-item>
       </el-submenu>
 
     </el-menu>
@@ -87,6 +42,11 @@
 
 <script>
 export default {
+  data () {
+    return {
+      menus: []
+    }
+  },
   beforeCreate () {
     const token = sessionStorage.getItem('token')
     if (!token) {
@@ -96,7 +56,18 @@ export default {
       this.$router.push('/')
     }
   },
+  created () {
+    this.getUserModel()
+  },
   methods: {
+    // 获取当前用户可操作模块
+    async getUserModel () {
+      const res = await this.$http.get('menus')
+      // console.log(res)
+      // 将数据赋值给RightNavlist
+      this.menus = res.data.data
+      console.log(this.menus)
+    },
     // 退出功能
     loginout () {
       // 1 清除session
